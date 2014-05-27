@@ -22,6 +22,7 @@ Quo.Gestures = do ($$ = Quo) ->
     environment.bind "touchmove", _move
     environment.bind "touchend", _end
     environment.bind "touchcancel", _cancel
+    environment.bind "touchcancel", _end
 
   add = (gesture) ->
     _handlers[gesture.name] = gesture.handler
