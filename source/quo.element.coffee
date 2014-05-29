@@ -108,3 +108,29 @@ do ($$ = Quo) ->
         width : bounding.width
         height: bounding.height
     offset
+  
+  $$.fn.rotateChildrenUp = ->
+  @insertBefore @lastElementChild, @firstElementChild
+
+  $$.fn.rotateChildrenDown = ->
+    @appendChild @removeChild(@firstElementChild)
+  
+  $$.fn.moveUp = ->
+    @parentNode.insertBefore @parentNode.removeChild(this), @previousElementSibling
+  
+  $$.fn.moveDown = ->
+    @parentNode.insertBefore @parentNode.removeChild(this), @previousElementSibling
+  
+  $$.fn.scaleFont = ->
+    scaleFactor = 0.35
+    scaleSource = @offsetWidth
+    maxScale = 100
+    minScale = 1
+    fontSize = maxScale - (scaleSource * scaleFactor)
+    if fontSize > maxScale
+      fontSize = maxScale
+    else
+      fontSize = minScale  if fontSize < minScale
+    @style.fontSize = fontSize + "%"
+  
+      
