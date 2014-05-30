@@ -127,10 +127,7 @@ do ($$ = Quo) ->
     maxScale = 100
     minScale = 1
     fontSize = maxScale - (scaleSource * scaleFactor)
-    if fontSize > maxScale
-      fontSize = maxScale
-    else
-      fontSize = minScale  if fontSize < minScale
+    (if fontSize < minScale then fontSize = minScale else null))
     @style.fontSize = fontSize + "%"
   
       
