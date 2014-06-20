@@ -34,7 +34,7 @@ Quo.Gestures.add
         _last = null
 
     move = (target, data) ->
-      if data.length is 1
+      if data.length >= 1
         delta = x: (data[0].x - _start.x), y: (data[0].y - _start.y),
           vx: (if is_first then (data[0].x - _start.x) / dt else _last.delta.vx * VELOCITY_SMOOTHING + ((data[0].x - _last.x) / dt) * (1 - VELOCITY_SMOOTHING)),
           vy: (if is_first then (data[0].x - _start.y) / dt else _last.delta.vy * VELOCITY_SMOOTHING + ((data[0].y - _last.y) / dt) * (1 - VELOCITY_SMOOTHING))
@@ -44,6 +44,16 @@ Quo.Gestures.add
         _last = null
 
     cancel = end = (target, data) ->
+      if not _last? or _last is `undefined`
+        if data.length >= 1
+          delta =
+            x: data[0].x - _start.x
+            y: data[0].y - _start.y
+
+          _last =
+            x: data[0].x
+            y: data[0].y
+            delta: delta
       if _last
         _check(false)
         _last = null
